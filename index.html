@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>武侠卡牌对战</title>
+    <title>侠客行</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,8 +11,8 @@
     <h2>创建江湖角色</h2>
     <input type="text" id="nickname" placeholder="输入昵称">
     <div class="gender-select">
-        <button onclick="selectGender('male')">男</button>
-        <button onclick="selectGender('female')">女</button>
+        <button data-gender="male">男</button>
+        <button data-gender="female">女</button>
     </div>
     <button onclick="createCharacter()">踏入江湖</button>
     </div>

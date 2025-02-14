@@ -13,4 +13,9 @@ class Player {
     saveToLocal() {
         localStorage.setItem("playerData", JSON.stringify(this));
     }
+
+    loadFromLocal() {
+        const data = JSON.parse(localStorage.getItem("playerData"));
+        Object.assign(this, data);
+    }
 }

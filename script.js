@@ -6,6 +6,15 @@ let playerNeili = 0;  // 玩家内力
 let isPlayerTurn = true;
 let currentGender = 'male';
 
+function initGame() {
+    player = new Player(); // 确保player实例化
+    if (localStorage.getItem("playerData")) {
+        player.loadFromLocal();
+    }
+    bindEvents();
+}
+
+import { cardDatabase, buffs } from './config.js';
 import Player from './player.js';
 import CardSystem from './cardSystem.js';
 import BattleSystem from './battleSystem.js';
@@ -31,16 +40,6 @@ const cardEffectHandlers = {
     }
 };
 
-function playCard(cardIndex) {
-    const card = cardSystem.hand[cardIndex];
-    const handler = cardEffectHandlers[card.name] || defaultCardHandler;
-    handler(player, enemy);
-    
-    cardSystem.discardPile.push(card);
-    cardSystem.hand.splice(cardIndex, 1);
-    updateUI();
-}
-
 function selectGender(gender) {
     currentGender = gender;
     document.querySelectorAll('.gender-select button').forEach(btn => {
@@ -50,37 +49,22 @@ function selectGender(gender) {
 }
 // 初始化新玩家
 function initNewPlayer() {
-    player = {
-        ...player,
-        packs: Array(5).fill("初入江湖"), // 5个初始卡包
-        deck: [] // 初始空牌组
-    };
-    localStorage.setItem("playerData", JSON.stringify(player));
+    player.packs = Array(5).fill("初入江湖");
+    player.deck = [];
+    player.saveToLocal();
 }
 
-const cardDatabase = {
-    // 基础牌
-    "拳打": { type: "基础", effect: { type: "damage", value: 1 }},
-    "飞蝗石": { type: "暗器", cost: 1, effect: { type: "damage", value: 1, range: 3 }},
+function bindEvents() {
+    // 性别选择按钮
+    document.querySelectorAll('.gender-select button').forEach(btn => {
+        btn.addEventListener('click', function() {
+            selectGender(this.dataset.gender);
+        });
+    });
     
-    // 武学牌
-    "折风剑法": { 
-        type: "剑法", 
-        cost: 1,
-        effect: {
-            type: "复合",
-            effects: [
-                { type: "damage", value: 1 },
-                { type: "addBuff", buff: "神速", duration: 1 }
-            ]
-        }
-    },
-    "铁布衫": {
-        type: "防御",
-        cost: 2,
-        effect: { type: "addBuff", buff: "横练", duration: 2 }
-    }
-};
+    // 初始化时调用
+    initGame();
+}
 
 function openStarterPack() {
     const packCards = [];
@@ -97,7 +81,7 @@ function openStarterPack() {
     // 展示抽卡结果
     const container = document.getElementById("packCards");
     container.innerHTML = packCards.map(card => `
-        <div class="pack-card">
+        <div class="pack-card" data-card="${card}">  // 添加data-card属性
             <div>${card}</div>
             <button onclick="selectCard('${card}')">加入牌组</button>
         </div>
@@ -142,18 +126,11 @@ function confirmDeck() {
 
 // ========== 初始化游戏 ==========
 function initDeck() {
-    const baseDeck = [
-        { id: 1, name: "攻", type: "基础" },
-        { id: 2, name: "闪", type: "基础" },
-        { id: 3, name: "吐纳", type: "基础" },
-        { id: 4, name: "药", type: "物品" },
-        // ...重复10张卡牌...
-    ];
-    
-    library = [];
-    for (let i = 0; i < 10; i++) {
-        library.push({ ...baseDeck[i % baseDeck.length], id: Date.now() + i });
-    }
+    library = player.deck.map((name, index) => ({
+        id: Date.now() + index,
+        name: name,
+        ...cardDatabase[name]
+    }));
     shuffleDeck();
     updateDeckInfo();
 }
@@ -177,21 +154,15 @@ function drawCards(num = 3) {
 
 function playCard(cardIndex) {
     const card = playerHand[cardIndex];
+    // 处理效果
+    if(cardDatabase[card.name].effect === "damage") {
+        document.getElementById("enemyHp").textContent = 
+            parseInt(document.getElementById("enemyHp").textContent) - 1;
+    }
+    // 移动到弃牌堆
     discardPile.push(card);
     playerHand.splice(cardIndex, 1);
-    
-    // 处理卡牌效果
-    switch (card.name) {
-        case "拳打":
-            document.getElementById("enemyHp").textContent = 
-                parseInt(document.getElementById("enemyHp").textContent) - 1;
-            break;
-        case "吐纳":
-            playerNeili += 1;
-            document.getElementById("neili").textContent = playerNeili;
-            break;
-    }
-    
+    // 更新界面
     renderHand();
     checkGameOver();
     updateDeckInfo();
@@ -223,12 +194,6 @@ class BuffSystem {
         }, 0);
     }
 }
-
-// 示例Buff配置
-const buffs = {
-    "神速": { duration: 2, effects: { attackPriority: 1 } },
-    "横练": { duration: 3, effects: { defense: 1 } }
-};
 
 // ========== 界面更新 ==========
 function renderHand() {
@@ -293,3 +258,7 @@ function checkGameOver() {
 document.getElementById("drawBtn").addEventListener("click", () => drawCards(3));
 initDeck();
 drawCards(3);
+
+window.selectGender = selectGender;
+window.createCharacter = createCharacter;
+window.selectCard = selectCard;
