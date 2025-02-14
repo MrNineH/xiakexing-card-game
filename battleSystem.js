@@ -1,4 +1,4 @@
-class BattleSystem {
+export class BattleSystem { // 添加export关键字
     constructor() {
         this.isPlayerTurn = true;
     }

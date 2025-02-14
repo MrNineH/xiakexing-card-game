@@ -1,4 +1,4 @@
-class CardSystem {
+export class CardSystem { // 添加export关键字
     constructor() {
         this.library = [];
         this.discardPile = [];

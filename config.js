@@ -1,17 +1,59 @@
 export const cardDatabase = {
-    "拳打": { type: "基础", effect: "damage" },
+    "拳打": { 
+        type: "基础", 
+        cost: 1,
+        effect: "造成1点伤害",
+        desc: "沙包大的拳头" 
+    },
+    "吐纳": { 
+        type: "基础", 
+        effect: "恢复1点内力",
+        desc: "一呼一吸"
+    },
+    "化瘀": { 
+        type: "基础", 
+        effect: ["消耗1点内力", "恢复2点生命"],
+        desc: "街头按摩"
+    },
+    "飞蝗石": { 
+        type: "暗器", 
+        cost: 3,
+        effect: "造成1点伤害",
+        desc: "有棱角的细长状坚石，因其外形略如蝗虫"
+    },
     "折风剑法": { 
         type: "剑法", 
         cost: 1,
-        effect: ["damage", "addBuff"]
-    }
+        effect: ["消耗1点内力", "造成1点伤害","获得神速1"],
+        desc: "出剑若风，以快制敌" 
+    },
+    "披挂刀法": { 
+        type: "刀法", 
+        cost: 1,
+        effect: ["消耗1点内力", "对两名敌人各造成1点伤害","获得横练1"],
+        desc: "出剑若风，以快制敌" 
+    },
+    "猛虎拳法": { 
+        type: "拳法", 
+        cost: 1,
+        effect: ["消耗1点内力", "对一名敌人造成1-3点伤害","自身生命低于50%时额外造成1点伤害"],
+        desc: "出剑若风，以快制敌" 
+    },
+     "直冲枪法": { 
+        type: "枪法", 
+        cost: 2,
+        effect: ["消耗1点内力", "对一名目标造成2点伤害并对其相邻一名目标造成1点伤害"],
+        desc: "出剑若风，以快制敌" 
+    },
+    // 其他卡牌补充类似描述...
 };
 
 export const buffs = {
     "神速": { 
-        duration: 2, 
+        duration: 1, 
         effects: { 
             attackPriority: 1 
-        }
+        },
+        desc: "下回合额外摸1张牌"
     }
 };
