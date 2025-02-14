@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>武侠卡牌对战</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+        <!-- 登录界面 -->
+    <div id="loginPanel" class="panel">
+    <h2>创建江湖角色</h2>
+    <input type="text" id="nickname" placeholder="输入昵称">
+    <div class="gender-select">
+        <button onclick="selectGender('male')">男</button>
+        <button onclick="selectGender('female')">女</button>
+    </div>
+    <button onclick="createCharacter()">踏入江湖</button>
+    </div>
+ 
+         <!-- 卡包开启界面 -->
+    <div id="packOpenPanel" class="panel" style="display:none;">
+        <h2>初入江湖卡包</h2>
+        <div id="packCards"></div>
+        <button onclick="confirmDeck()">组成牌组（最少10张）</button>
+    </div>
+
+        <!-- 主游戏界面（默认隐藏） -->
+    <div id="gamePanel" class="panel" style="display:none;">
+
+    <!-- 玩家信息 -->
+    <div class="player">
+        <div>生命值：<span id="hp">10</span></div>
+        <div>内力：<span id="neili">0</span></div>
+    </div>
+
+    <!-- 敌人信息 -->
+    <div class="enemy">
+        <div>敌人生命值：<span id="enemyHp">10</span></div>
+    </div>
+
+    <!-- 牌组信息 -->
+    <div class="deck-info">
+        <div>牌组剩余：<span id="libraryCount">0</span></div>
+        <div>弃牌堆：<span id="discardCount">0</span></div>
+    </div>
+
+    <!-- 操作区 -->
+    <button id="drawBtn">抽牌</button>
+    <button id="endTurnBtn">结束回合</button>
+    
+    <!-- 手牌区 -->
+    <div class="hand"></div>
+
+    <script type="module" src="script.js"></script>
+
+</div>
+</body>
+</html>

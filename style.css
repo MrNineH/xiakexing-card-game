@@ -1,0 +1,77 @@
+body {
+    font-family: '楷体', cursive;
+    background: #f0e6d3;
+    padding: 20px;
+}
+
+.player, .enemy {
+    border: 3px solid #4a3728;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 15px 0;
+    width: 250px;
+    background: #fff5e6;
+}
+
+.enemy {
+    border-color: #c00;
+}
+
+.deck-info {
+    margin: 20px 0;
+    color: #666;
+}
+
+.card {
+    width: 120px;
+    height: 180px;
+    background: #fff;
+    border: 2px solid #4a3728;
+    border-radius: 8px;
+    margin: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    background: #4a3728;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background: #6b4f3a;
+}
+
+.panel {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+.gender-select button {
+    transition: all 0.3s;
+}
+
+.gender-select button.active {
+    background: #6b4f3a;
+    transform: scale(1.1);
+    box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
