@@ -24,7 +24,15 @@
         <button id="openPackBtn">开启卡包</button>
         <div class="pack-status">
             已选卡牌：<span id="selectedCount">0</span>/10
+            <button id="showSelectedBtn">查看已选</button>
         </div>
+            
+        <!-- 新增已选卡牌展示面板 -->
+        <div id="selectedCardsPanel" class="selected-panel">
+            <h3>当前牌组</h3>
+            <div id="selectedCardsList" class="card-grid"></div>
+        </div>
+        
         <div id="packCards" class="card-grid"></div>
         <button id="confirmDeckBtn" disabled>组成牌组</button>
     </div>
