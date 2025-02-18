@@ -15,6 +15,9 @@ export class CardSystem { // 添加export关键字
     }
 
     shuffle() {
-        this.library.sort(() => Math.random() - 0.5);
-    }
+        for (let i = this.library.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [this.library[i], this.library[j]] = [this.library[j], this.library[i]];
+        }
+      }
 }

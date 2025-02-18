@@ -17,7 +17,7 @@ export const cardDatabase = {
     },
     "飞蝗石": { 
         type: "暗器", 
-        cost: 3,
+        cost: 1,
         effect: "造成1点伤害",
         desc: "有棱角的细长状坚石，因其外形略如蝗虫"
     },

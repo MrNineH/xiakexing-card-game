@@ -275,3 +275,15 @@
   .pack-card {
     animation: cardAppear 0.5s ease forwards;
   }
+
+  /* ===== 卡包界面专属样式 ===== */
+.pack-panel .card-grid {
+  background: #fff5e6;
+  border: 2px dashed var(--primary-color);
+}
+
+/* ===== 牌组组建界面专属样式 ===== */
+.deckbuilder-panel .selected-panel {
+  background: #e8f4ff;
+  border-color: var(--accent-color);
+}
